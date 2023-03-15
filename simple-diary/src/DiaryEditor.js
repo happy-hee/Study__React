@@ -1,6 +1,11 @@
-import { useState } from "react";
+// useRef: HTML DOM 요소에 접근
+import { useRef, useState } from "react";
 
 const DiaryEditor = () => {
+  // ref 객체에 접근
+  const authorInput = useRef();
+  const contentInput = useRef();
+
   const [state, setState] = useState({
     author: "",
     content: "",
@@ -16,7 +21,19 @@ const DiaryEditor = () => {
   };
 
   const handleSubmit = () => {
-    console.log(state);
+    if (state.author.length < 1) {
+      // focus
+      // current: 현재 가리키는 값
+      authorInput.current.focus();
+      return;
+    }
+
+    if (state.content.length < 5) {
+      // focus
+      contentInput.current.focus();
+      return;
+    }
+
     alert("저장 성공!");
   };
 
@@ -25,6 +42,8 @@ const DiaryEditor = () => {
       <h2>오늘의 일기</h2>
       <div>
         <input
+          // 선택하고싶은 DOM에 ref 값으로 설정
+          ref={authorInput}
           name="author"
           value={state.author}
           // onChange={(e) => {
@@ -42,6 +61,7 @@ const DiaryEditor = () => {
       </div>
       <div>
         <textarea
+          ref={contentInput}
           name="content"
           value={state.content}
           onChange={handleChangeState}
