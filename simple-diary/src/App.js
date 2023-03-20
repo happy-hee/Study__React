@@ -1,7 +1,8 @@
 import "./App.css";
+import { useState, useRef } from "react";
 import DiaryEditor from "./DiaryEditor";
 import DiaryList from "./DiaryList";
-import { useState, useRef } from "react";
+import Lifecycle from "./Lifecycle";
 
 function App() {
   //일기 데이터
@@ -45,6 +46,7 @@ function App() {
 
   return (
     <div className="App">
+      <Lifecycle />
       <DiaryEditor onCreate={onCreate} />
       <DiaryList onEdit={onEdit} onRemove={onRemove} diaryList={data} />
     </div>
