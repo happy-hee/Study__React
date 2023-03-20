@@ -26,16 +26,27 @@ function App() {
     setData([newItem, ...data]);
   };
 
-  const onDelete = (targetId) => {
+  // 일기 삭제
+  const onRemove = (targetId) => {
     // filter : 주어진 함수의 테스트를 통과하는 모든 요소를 모아 새로운 배열로 반환
     const newDiaryList = data.filter((it) => it.id !== targetId);
     setData(newDiaryList);
   };
 
+  // 일기 데이터 수정
+  const onEdit = (targetId, newContent) => {
+    setData(
+      // 원본 데이터의 모든 요소를 순회하며 새로운 배열을 만들어 setData 에 전달
+      data.map((it) =>
+        it.id === targetId ? { ...it, content: newContent } : it
+      )
+    );
+  };
+
   return (
     <div className="App">
       <DiaryEditor onCreate={onCreate} />
-      <DiaryList onDelete={onDelete} diaryList={data} />
+      <DiaryList onEdit={onEdit} onRemove={onRemove} diaryList={data} />
     </div>
   );
 }
