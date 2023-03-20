@@ -1,7 +1,7 @@
 // useRef: HTML DOM 요소에 접근
 import { useRef, useState } from "react";
 
-const DiaryEditor = () => {
+const DiaryEditor = ({ onCreate }) => {
   // ref 객체에 접근
   const authorInput = useRef();
   const contentInput = useRef();
@@ -20,6 +20,7 @@ const DiaryEditor = () => {
     });
   };
 
+  //일기 저장
   const handleSubmit = () => {
     if (state.author.length < 1) {
       // focus
@@ -34,7 +35,14 @@ const DiaryEditor = () => {
       return;
     }
 
+    onCreate(state.author, state.content, state.emotion);
     alert("저장 성공!");
+    // 일기 작성폼 초기화
+    setState({
+      author: "",
+      content: "",
+      emotion: 1,
+    });
   };
 
   return (
