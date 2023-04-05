@@ -65,6 +65,7 @@ function App() {
     );
   };
 
+  // useMemo(콜백함수,[defendency array])
   const getDiaryAnalysis = useMemo(
     () => {
       console.log("일기 분석 시작");
