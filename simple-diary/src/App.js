@@ -1,5 +1,5 @@
 import "./App.css";
-import { useMemo, useState, useRef, useEffect } from "react";
+import { useMemo, useState, useRef, useEffect, useCallback } from "react";
 import DiaryEditor from "./DiaryEditor";
 import DiaryList from "./DiaryList";
 
@@ -32,21 +32,28 @@ function App() {
   }, []);
 
   // 새로운 일기 추가
-  const onCreate = (author, content, emotion) => {
-    const created_date = new Date().getTime();
-    const newItem = {
-      author,
-      content,
-      emotion,
-      created_date,
-      id: dataId.current,
-    };
-    // id 값이 다르게 하기위해 id 값에 +1씩 추가
-    dataId.current += 1;
-    // 새 아이템, ...원래 있던 데이터들
-    // -> 가장 위에 갈 수 있도록 newItem을 앞에 추가
-    setData([newItem, ...data]);
-  };
+  // useCallback : 함수의 재생성
+  const onCreate = useCallback(
+    (author, content, emotion) => {
+      const created_date = new Date().getTime();
+      const newItem = {
+        author,
+        content,
+        emotion,
+        created_date,
+        id: dataId.current,
+      };
+      // id 값이 다르게 하기위해 id 값에 +1씩 추가
+      dataId.current += 1;
+      // 새 아이템, ...원래 있던 데이터들
+      // -> 가장 위에 갈 수 있도록 newItem을 앞에 추가
+
+      // 항상 최신의 state를 참조 :useCallback을 사용하면서 setData를 함수형 업데이트로 변경
+      setData((data) => [newItem, ...data]);
+    },
+
+    []
+  );
 
   // 일기 삭제
   const onRemove = (targetId) => {
