@@ -68,8 +68,6 @@ function App() {
   // useMemo(콜백함수,[defendency array])
   const getDiaryAnalysis = useMemo(
     () => {
-      console.log("일기 분석 시작");
-
       // 기분이 좋은 일기 갯수
       const goodCount = data.filter((it) => it.emotion >= 3).length;
       // 기분이 안좋은 일기 갯수
