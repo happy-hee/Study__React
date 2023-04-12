@@ -1,11 +1,39 @@
 import "./App.css";
-import { useMemo, useState, useRef, useEffect, useCallback } from "react";
+import { useMemo, useReducer, useRef, useEffect, useCallback } from "react";
 import DiaryEditor from "./DiaryEditor";
 import DiaryList from "./DiaryList";
 
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "INIT": {
+      return action.data;
+    }
+    case "CREATE": {
+      const created_date = new Date().getTime();
+      const newItem = {
+        ...action.data,
+        created_date,
+      };
+      return [newItem, ...state];
+    }
+    case "REMOVE": {
+      return state.filter((it) => it.id !== action.targetId);
+    }
+    case "EDIT": {
+      return state.map((it) =>
+        it.id === action.targetId ? { ...it, content: action.newContent } : it
+      );
+    }
+    default:
+      return state;
+  }
+};
+
 function App() {
   //일기 데이터
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
+
+  const [data, dispatch] = useReducer(reducer, []);
 
   const dataId = useRef(0);
 
@@ -24,7 +52,8 @@ function App() {
       };
     });
 
-    setData(initData);
+    dispatch({ type: "INIT", data: initData });
+    // setData(initData);
   };
 
   useEffect(() => {
@@ -35,21 +64,18 @@ function App() {
   // useCallback : 함수의 재생성
   const onCreate = useCallback(
     (author, content, emotion) => {
-      const created_date = new Date().getTime();
-      const newItem = {
-        author,
-        content,
-        emotion,
-        created_date,
-        id: dataId.current,
-      };
+      dispatch({
+        type: "CREATE",
+        data: { author, content, emotion, id: dataId.current },
+      });
       // id 값이 다르게 하기위해 id 값에 +1씩 추가
       dataId.current += 1;
+
       // 새 아이템, ...원래 있던 데이터들
       // -> 가장 위에 갈 수 있도록 newItem을 앞에 추가
 
       // 항상 최신의 state를 참조 :useCallback을 사용하면서 setData를 함수형 업데이트로 변경
-      setData((data) => [newItem, ...data]);
+      // setData((data) => [newItem, ...data]);
     },
 
     []
@@ -58,17 +84,22 @@ function App() {
   // 일기 삭제
   const onRemove = useCallback((targetId) => {
     // filter : 주어진 함수의 테스트를 통과하는 모든 요소를 모아 새로운 배열로 반환
-    setData((data) => data.filter((it) => it.id !== targetId));
+
+    dispatch({ type: "REMOVE", targetId });
+
+    // setData((data) => data.filter((it) => it.id !== targetId));
   }, []);
 
   // 일기 데이터 수정
   const onEdit = useCallback((targetId, newContent) => {
-    setData((data) =>
-      // 원본 데이터의 모든 요소를 순회하며 새로운 배열을 만들어 setData 에 전달
-      data.map((it) =>
-        it.id === targetId ? { ...it, content: newContent } : it
-      )
-    );
+    dispatch({ type: "EDIT", targetId, newContent });
+
+    // setData((data) =>
+    //   // 원본 데이터의 모든 요소를 순회하며 새로운 배열을 만들어 setData 에 전달
+    //   data.map((it) =>
+    //     it.id === targetId ? { ...it, content: newContent } : it
+    //   )
+    // );
   }, []);
 
   // useMemo(콜백함수,[defendency array])
