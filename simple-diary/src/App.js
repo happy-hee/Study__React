@@ -56,21 +56,20 @@ function App() {
   );
 
   // 일기 삭제
-  const onRemove = (targetId) => {
+  const onRemove = useCallback((targetId) => {
     // filter : 주어진 함수의 테스트를 통과하는 모든 요소를 모아 새로운 배열로 반환
-    const newDiaryList = data.filter((it) => it.id !== targetId);
-    setData(newDiaryList);
-  };
+    setData((data) => data.filter((it) => it.id !== targetId));
+  }, []);
 
   // 일기 데이터 수정
-  const onEdit = (targetId, newContent) => {
-    setData(
+  const onEdit = useCallback((targetId, newContent) => {
+    setData((data) =>
       // 원본 데이터의 모든 요소를 순회하며 새로운 배열을 만들어 setData 에 전달
       data.map((it) =>
         it.id === targetId ? { ...it, content: newContent } : it
       )
     );
-  };
+  }, []);
 
   // useMemo(콜백함수,[defendency array])
   const getDiaryAnalysis = useMemo(

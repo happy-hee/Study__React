@@ -1,14 +1,20 @@
-import { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 const DiaryItem = ({
-  author,
-  content,
-  created_date,
-  emotion,
-  id,
-  onRemove,
+  //최적화 필요
   onEdit,
+  onRemove,
+  content,
+  //최적화 불필요 (불변)
+  id,
+  author,
+  emotion,
+  created_date,
 }) => {
+  useEffect(() => {
+    console.log(`${id}번째 아이템 렌더!`);
+  });
+
   const [isEdit, setIsEdit] = useState(false);
   // isEdit 반전연산(toggle)
   const toggleIsEdit = () => {
@@ -89,4 +95,4 @@ const DiaryItem = ({
   );
 };
 
-export default DiaryItem;
+export default React.memo(DiaryItem);
