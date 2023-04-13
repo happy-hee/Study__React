@@ -1,9 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useContext, useState, useRef } from "react";
+import { DiaryDispatchContext } from "./App";
 
 const DiaryItem = ({
   //최적화 필요
-  onEdit,
-  onRemove,
   content,
   //최적화 불필요 (불변)
   id,
@@ -11,9 +10,7 @@ const DiaryItem = ({
   emotion,
   created_date,
 }) => {
-  useEffect(() => {
-    console.log(`${id}번째 아이템 렌더!`);
-  });
+  const { onRemove, onEdit } = useContext(DiaryDispatchContext);
 
   const [isEdit, setIsEdit] = useState(false);
   // isEdit 반전연산(toggle)
