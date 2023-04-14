@@ -56,3 +56,35 @@ body {
   background-color: #fd565f;
   color: #fff;
 }
+
+/* Header */
+header {
+  padding: 20px 0;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #eaeaea;
+}
+
+header > div {
+  display: flex;
+}
+
+header .head_text {
+  width: 50%;
+  font-size: 25px;
+  justify-content: center;
+}
+
+header .head_btn_left {
+  width: 25%;
+  justify-content: start;
+}
+
+header .header_btn_right {
+  width: 25%;
+  justify-content: end;
+}
+
+header button {
+  font-family: "Noto Serif KR";
+}
