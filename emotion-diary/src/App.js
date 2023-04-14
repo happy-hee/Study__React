@@ -2,7 +2,7 @@ import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 // SPA 방식으로 페이지를 이동 시켜주는 컴포넌트(Link)
-import RouteTest from "./components/RouteTest";
+// import RouteTest from "./components/RouteTest";
 
 //페이지 역할 임포트
 import Home from "./pages/Home";
@@ -24,7 +24,7 @@ function App() {
           <Route path="/diary:id" element={<Diary />} />
         </Routes>
         {/* React Route는 별도의 컴포넌트를 이용해서 페이지 이동 (예시 : <RouteTest />) */}
-        <RouteTest />
+        {/* <RouteTest /> */}
       </div>
     </BrowserRouter>
   );
