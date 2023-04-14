@@ -1,3 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+KR&family=Song+Myung&display=swap");
+
 .App {
   padding: 20px;
+  font-family: "Noto Serif KR", serif;
+  font-family: "Song Myung", serif;
 }
