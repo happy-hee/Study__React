@@ -41,8 +41,41 @@ export const DiaryStateContext = React.createContext();
 // dispatch 함수들(onCreate, onRemove, onEdit)도 context를 생성해서 공급
 export const DiaryDispatchContext = React.createContext();
 
+const dummyData = [
+  {
+    id: 1,
+    emotion: 1,
+    content: "오늘의 일기 1",
+    date: 1681714595421,
+  },
+  {
+    id: 2,
+    emotion: 5,
+    content: "오늘의 일기 2",
+    date: 1681714595426,
+  },
+  {
+    id: 3,
+    emotion: 2,
+    content: "오늘의 일기 3",
+    date: 1681714595436,
+  },
+  {
+    id: 4,
+    emotion: 3,
+    content: "오늘의 일기 4",
+    date: 1681714595446,
+  },
+  {
+    id: 5,
+    emotion: 4,
+    content: "오늘의 일기 5",
+    date: 1681714595450,
+  },
+];
+
 function App() {
-  const [data, dispatch] = useReducer(reducer, []);
+  const [data, dispatch] = useReducer(reducer, dummyData);
 
   const dataId = useRef(0);
   //CREATE
