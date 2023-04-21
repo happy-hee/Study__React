@@ -55,7 +55,7 @@ const DiaryList = ({ diaryList }) => {
       }
     };
 
-    // 최신순/오래된순 비교
+    //  배열 내의 아이템을 두 개씩 쌍으로 비교하며 반환값에 따라 정렬
     const compare = (a, b) => {
       // 최신순일 경우
       if (sortType === "lasest") {
