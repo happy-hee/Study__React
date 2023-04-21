@@ -47,9 +47,9 @@ const DiaryList = ({ diaryList }) => {
       }
     };
 
-    // 날짜 비교
+    // 최신순/오래된순 비교
     const compare = (a, b) => {
-      // 날짜가 최신순일 경우
+      // 최신순일 경우
       if (sortType === "lasest") {
         return parseInt(b.date) - parseInt(a.date);
       } else {
@@ -68,13 +68,13 @@ const DiaryList = ({ diaryList }) => {
 
   return (
     <div>
-      {/* 날짜순 선택 */}
+      {/* 최신순/오래된순 선택 */}
       <ControlMenu
         value={sortType}
         onChange={setSortType}
         optionList={sortOptionList}
       />
-      {/* 감정순 선택 */}
+      {/* 감정별 선택 */}
       <ControlMenu
         value={filter}
         onChange={setFilter}
