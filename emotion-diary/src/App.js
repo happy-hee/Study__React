@@ -119,7 +119,7 @@ function App() {
               {/* Route : url 경로와 컴포넌트를 mapping 시켜주는 컴포넌트 */}
               <Route path="/" element={<Home />} />
               <Route path="/new" element={<New />} />
-              <Route path="/edit" element={<Edit />} />
+              <Route path="/edit/:id" element={<Edit />} />
               {/* path 경로 뒤에 콜론을 사용해서 뒤에있는 값을 전달하겠다고 선언 */}
               <Route path="/diary/:id" element={<Diary />} />
             </Routes>
