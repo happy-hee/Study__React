@@ -38,10 +38,6 @@ const Home = () => {
     }
   }, [diaryList, curDate]);
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
   // 한달씩 증가
   const increaseMonth = () => {
     setCurDate(
