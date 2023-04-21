@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import DiaryItem from "./DiaryItem";
 import MyButton from "./MyButton";
 
 // 옵션 리스트 (최신순/오래된순)
@@ -100,9 +101,7 @@ const DiaryList = ({ diaryList }) => {
       </div>
 
       {getProcessedDiaryList().map((it) => (
-        <div key={it.id}>
-          [내용] {it.content} | [감정점수] : {it.emotion}
-        </div>
+        <DiaryItem key={it.id} {...it} />
       ))}
     </div>
   );

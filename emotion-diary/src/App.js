@@ -121,7 +121,7 @@ function App() {
               <Route path="/new" element={<New />} />
               <Route path="/edit" element={<Edit />} />
               {/* path 경로 뒤에 콜론을 사용해서 뒤에있는 값을 전달하겠다고 선언 */}
-              <Route path="/diary:id" element={<Diary />} />
+              <Route path="/diary/:id" element={<Diary />} />
             </Routes>
             {/* React Route는 별도의 컴포넌트를 이용해서 페이지 이동 (예시 : <RouteTest />) */}
             {/* <RouteTest /> */}
