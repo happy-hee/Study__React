@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import MyButton from "./MyButton";
 
 // 옵션 리스트 (최신순/오래된순)
 const sortOptionList = [
@@ -28,6 +30,8 @@ const ControlMenu = ({ value, onChange, optionList }) => {
 
 // 다이어리 리스트 가공
 const DiaryList = ({ diaryList }) => {
+  // 페이지 이동이 가능하도록 navigate 변수에 담기
+  const navigate = useNavigate();
   // 최신순/오래된순
   const [sortType, setSortType] = useState("lastest");
   // 감정 필터링
@@ -79,6 +83,11 @@ const DiaryList = ({ diaryList }) => {
         value={filter}
         onChange={setFilter}
         optionList={filterOptionList}
+      />
+      <MyButton
+        type={"positive"}
+        text={"새 일기 쓰기"}
+        onClick={() => navigate("./new")}
       />
       {getProcessedDiaryList().map((it) => (
         <div key={it.id}>
