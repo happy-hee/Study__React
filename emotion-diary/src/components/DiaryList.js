@@ -18,7 +18,10 @@ const filterOptionList = [
 // DOM 에 뿌릴 셀렉트박스
 const ControlMenu = ({ value, onChange, optionList }) => {
   return (
-    <select value={value} onChange={(e) => onChange(e.target.value)}>
+    <select
+      className="ControlMenu"
+      value={value}
+      onChange={(e) => onChange(e.target.value)}>
       {optionList.map((it, idx) => (
         <option key={idx} value={it.value}>
           {it.name}
@@ -71,24 +74,31 @@ const DiaryList = ({ diaryList }) => {
   };
 
   return (
-    <div>
-      {/* 최신순/오래된순 선택 */}
-      <ControlMenu
-        value={sortType}
-        onChange={setSortType}
-        optionList={sortOptionList}
-      />
-      {/* 감정별 선택 */}
-      <ControlMenu
-        value={filter}
-        onChange={setFilter}
-        optionList={filterOptionList}
-      />
-      <MyButton
-        type={"positive"}
-        text={"새 일기 쓰기"}
-        onClick={() => navigate("./new")}
-      />
+    <div className="DiaryList">
+      <div className="menu_wrapper">
+        <div className="left_col">
+          {/* 최신순/오래된순 선택 */}
+          <ControlMenu
+            value={sortType}
+            onChange={setSortType}
+            optionList={sortOptionList}
+          />
+          {/* 감정별 선택 */}
+          <ControlMenu
+            value={filter}
+            onChange={setFilter}
+            optionList={filterOptionList}
+          />
+        </div>
+        <div className="right_col">
+          <MyButton
+            type={"positive"}
+            text={"새 일기 쓰기"}
+            onClick={() => navigate("./new")}
+          />
+        </div>
+      </div>
+
       {getProcessedDiaryList().map((it) => (
         <div key={it.id}>
           [내용] {it.content} | [감정점수] : {it.emotion}
