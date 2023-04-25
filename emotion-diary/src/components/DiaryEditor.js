@@ -1,4 +1,4 @@
-import { useRef, useState, useContext, useEffect } from "react";
+import { useRef, useState, useContext, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { DiaryDispatchContext } from "./../App.js";
 
@@ -19,9 +19,9 @@ const DiaryEditor = ({ isEdit, originData }) => {
   const navigate = useNavigate();
 
   // EmotionItem 에서 받아온 emotion을 현재 emotion으로 설정
-  const handleClickEmote = (emotion) => {
+  const handleClickEmote = useCallback((emotion) => {
     setEmotion(emotion);
-  };
+  }, []);
 
   const handleSubmit = () => {
     // 내용을 1글자 이상 작성하지 않으면 focus 되도록
