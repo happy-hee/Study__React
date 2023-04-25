@@ -14,6 +14,12 @@ const Diary = () => {
   const navigate = useNavigate();
   const [data, setData] = useState();
 
+  // 웹사이트 타이틀 변경
+  useEffect(() => {
+    const titleElement = document.getElementsByTagName("title")[0];
+    titleElement.innerHTML = `감정 일기장 - ${id}번 일기`;
+  }, []);
+
   useEffect(() => {
     //다이어리 리스트가 한개라도 있을 경우
     if (diaryList.length >= 1) {
