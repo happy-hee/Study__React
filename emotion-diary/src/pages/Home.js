@@ -28,7 +28,11 @@ const Home = () => {
       const lastDay = new Date(
         curDate.getFullYear(),
         curDate.getMonth() + 1,
-        0
+        0,
+        // 시간을 비교할 땐 시.분.초 전부 영향을 미침
+        23,
+        59,
+        59
       ).getTime();
 
       setData(

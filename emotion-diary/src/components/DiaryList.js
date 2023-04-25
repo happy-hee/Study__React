@@ -37,7 +37,7 @@ const DiaryList = ({ diaryList }) => {
   // 페이지 이동이 가능하도록 navigate 변수에 담기
   const navigate = useNavigate();
   // 최신순/오래된순
-  const [sortType, setSortType] = useState("lastest");
+  const [sortType, setSortType] = useState("latest");
   // 감정 필터링
   const [filter, setFilter] = useState("all");
 
@@ -58,7 +58,7 @@ const DiaryList = ({ diaryList }) => {
     //  배열 내의 아이템을 두 개씩 쌍으로 비교하며 반환값에 따라 정렬
     const compare = (a, b) => {
       // 최신순일 경우
-      if (sortType === "lasest") {
+      if (sortType === "latest") {
         return parseInt(b.date) - parseInt(a.date);
       } else {
         return parseInt(a.date) - parseInt(b.date);
