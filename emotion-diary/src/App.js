@@ -9,7 +9,7 @@ import Home from "./pages/Home";
 import New from "./pages/New";
 import Edit from "./pages/Edit";
 import Diary from "./pages/Diary";
-import React, { useReducer, useRef } from "react";
+import React, { useEffect, useReducer, useRef } from "react";
 
 const reducer = (state, action) => {
   let newState = [];
@@ -34,6 +34,8 @@ const reducer = (state, action) => {
     default:
       return state;
   }
+
+  localStorage.setItem("diary", JSON.stringify(newState));
   return newState;
 };
 
@@ -41,41 +43,41 @@ export const DiaryStateContext = React.createContext();
 // dispatch 함수들(onCreate, onRemove, onEdit)도 context를 생성해서 공급
 export const DiaryDispatchContext = React.createContext();
 
-const dummyData = [
-  {
-    id: 1,
-    emotion: 1,
-    content: "오늘의 일기 1",
-    date: 1681714595421,
-  },
-  {
-    id: 2,
-    emotion: 5,
-    content: "오늘의 일기 2",
-    date: 1681714595426,
-  },
-  {
-    id: 3,
-    emotion: 2,
-    content: "오늘의 일기 3",
-    date: 1681714595436,
-  },
-  {
-    id: 4,
-    emotion: 3,
-    content: "오늘의 일기 4",
-    date: 1681714595446,
-  },
-  {
-    id: 5,
-    emotion: 4,
-    content: "오늘의 일기 5",
-    date: 1681714595450,
-  },
-];
-
 function App() {
-  const [data, dispatch] = useReducer(reducer, dummyData);
+  // useEffect(() => {
+  //   //스토리지에 추가 (setItem)
+  //   localStorage.setItem("item1", 10);
+  //   localStorage.setItem("item2", "20");
+  //   // 객체 저장시 JSON.stringify 사용
+  //   localStorage.setItem("item3", JSON.stringify({ value: 30 }));
+
+  //   // 스토리지에서 불러오기 (getItem)
+  //   // 기존 값이 숫자였을 경우는 불러올때 parseInt 사용
+  //   const item1 = parseInt(localStorage.getItem("item1")); //10
+  //   const item2 = localStorage.getItem("item2"); //"20"
+  //   // 객체를 불러올때 JSON.parse 사용
+  //   const item3 = JSON.parse(localStorage.getItem("item3")); //{ value: 30 }
+  //   console.log({ item1, item2, item3 });
+  // }, []);
+
+  const [data, dispatch] = useReducer(reducer, []);
+
+  useEffect(() => {
+    // localStorage 에서 key가 diary인 데이터 불러오기
+    const localData = localStorage.getItem("diary");
+    // localData가 있을 경우만
+    if (localData) {
+      //diaryList를 내림차순으로 정렬
+      const diaryList = JSON.parse(localData).sort(
+        (a, b) => parseInt(b.id) - parseInt(a.id)
+      );
+      // 가장 최근 id 값 부분에 diaryList의 0번째의 id값 + 1을 한 값을 부여한다.
+      dataId.current = parseInt(diaryList[0].id) + 1;
+
+      //dispatch를 통해 data 상태 변화
+      dispatch({ type: "INIT", data: diaryList });
+    }
+  }, []);
 
   const dataId = useRef(6);
   //CREATE
