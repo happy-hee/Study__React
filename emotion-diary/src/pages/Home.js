@@ -14,6 +14,12 @@ const Home = () => {
 
   const headText = `${curDate.getFullYear()} 년 ${curDate.getMonth() + 1} 월`; //getMonth 사용시 월이 0부터 시작하므로 + 1을 해준다.
 
+  // 웹사이트 타이틀 변경
+  useEffect(() => {
+    const titleElement = document.getElementsByTagName("title")[0];
+    titleElement.innerHTML = `감정 일기장`;
+  }, []);
+
   // curDate가 변화하는 순간에만 다이어리에서 연도/월에 해당하는 일기 데이터만 뽑아옴
   useEffect(() => {
     if (diaryList.length >= 1) {
