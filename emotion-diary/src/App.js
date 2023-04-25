@@ -71,11 +71,17 @@ function App() {
       const diaryList = JSON.parse(localData).sort(
         (a, b) => parseInt(b.id) - parseInt(a.id)
       );
-      // 가장 최근 id 값 부분에 diaryList의 0번째의 id값 + 1을 한 값을 부여한다.
-      dataId.current = parseInt(diaryList[0].id) + 1;
 
-      //dispatch를 통해 data 상태 변화
-      dispatch({ type: "INIT", data: diaryList });
+      // 일기 갯수가 1개 이상인 경우만 실행
+      // (localData가 있는데 일기 갯수가 없는 경우, 아래 코드의 diaryList[0] 부분에서
+      // 0번째 index는 없기때문에 오류가 발생하게 됨. 이를 방지)
+      if (diaryList.length >= 1) {
+        // 가장 최근 id 값 부분에 diaryList의 0번째의 id값 + 1을 한 값을 부여한다.
+        dataId.current = parseInt(diaryList[0].id) + 1;
+
+        //dispatch를 통해 data 상태 변화
+        dispatch({ type: "INIT", data: diaryList });
+      }
     }
   }, []);
 
